@@ -43,6 +43,7 @@ export default function useHTTP(url, config, initialValue) {
     error,
     isLoading,
     sendRequest,
-    clearData
+    clearData,
+    setData
   }
 }

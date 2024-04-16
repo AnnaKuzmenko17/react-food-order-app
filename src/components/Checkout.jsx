@@ -1,14 +1,15 @@
 import { useContext } from "react";
 import CartContext from "../store/CartContext";
-import Modal from "./Modal";
 import UserProgressContext from "../store/UserProgressContext";
-import Input from "./Input";
-import { currFormatter } from "../util/formatting";
-import Button from "./UI/Button";
 import useHTTP from "../hooks/useHTTP";
-import Error from "./Error";
 
-const config = {
+import Modal from "./Modal";
+import Input from "./Input";
+import Button from "./UI/Button";
+import Error from "./Error";
+import { currFormatter } from "../util/formatting";
+
+const urlConfig = {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'
@@ -16,16 +17,18 @@ const config = {
 }
 
 export default function Checkout() {
+  const cartCtx = useContext(CartContext);
+  const userProgressCtx = useContext(UserProgressContext);
+
   const {
     data,
     error,
     isLoading,
     sendRequest,
-    clearData
-  } = useHTTP('http://localhost:3000/orders', config)
+    clearData,
+    setData
+  } = useHTTP('https://food-order-app-form-default-rtdb.firebaseio.com/.json', urlConfig)
 
-  const cartCtx = useContext(CartContext);
-  const userProgressCtx = useContext(UserProgressContext);
 
   const totalPrice = cartCtx.items.reduce((totalPrice, meal) => {
     return totalPrice + meal.price * meal.quantity;
@@ -52,6 +55,15 @@ export default function Checkout() {
         customer: customerData
       }
     }))
+
+    setData({
+      order: {
+        items: cartCtx.items,
+        customer: customerData
+      }
+    })
+
+    console.log(data)
   }
 
   let actions = (

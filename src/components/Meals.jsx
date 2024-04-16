@@ -9,7 +9,7 @@ export default function Meals() {
     data: meals,
     error,
     isLoading
-  } = useHTTP('http://localhost:3000/meals', config, []);
+  } = useHTTP('https://order-food-app-3a2b8-default-rtdb.firebaseio.com/.json', config, []);
 
   if (isLoading) {
     return <p className="center">Meals are loading...</p>
