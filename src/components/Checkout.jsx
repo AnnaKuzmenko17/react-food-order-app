@@ -16,8 +16,12 @@ const config = {
 }
 
 export default function Checkout() {
-  const { 
-    data, error, isLoading, sendRequest, clearData 
+  const {
+    data,
+    error,
+    isLoading,
+    sendRequest,
+    clearData
   } = useHTTP('http://localhost:3000/orders', config)
 
   const cartCtx = useContext(CartContext);
@@ -40,10 +44,11 @@ export default function Checkout() {
   function handleSubmit(event) {
     event.preventDefault();
     const fd = new FormData(event.target);
-    const customerData = Object.fromEntries(fd.entries())
+    const customerData = Object.fromEntries(fd);
+
     sendRequest(JSON.stringify({
       order: {
-        items: cartCtx.items, 
+        items: cartCtx.items,
         customer: customerData
       }
     }))
@@ -51,16 +56,16 @@ export default function Checkout() {
 
   let actions = (
     <>
-    <Button type='button' textOnly onClick={handleCloseCheckout}>Close</Button>
-    <Button>Submit Order</Button>
+      <Button type='button' textOnly onClick={handleCloseCheckout}>Close</Button>
+      <Button type='submit'>Submit Order</Button>
     </>
   )
 
-  if(isLoading) {
+  if (isLoading) {
     actions = <span>Sending order data...</span>
   }
 
-  if(data && !error) {
+  if (data && !error) {
     return <Modal open={userProgressCtx.progress === 'checkout'} onClose={handleFinish}>
       <h2>Succes!</h2>
       <p>Your order was submitted succesfully.</p>
@@ -75,11 +80,11 @@ export default function Checkout() {
     <form onSubmit={handleSubmit}>
       <h2>Checkout</h2>
       <p>Total Amount: {currFormatter.format(totalPrice)}</p>
-      <Input label="Full Name" type='text' id='name'/>
-      <Input label='Email Adress' type='email' id='email'/>
-      <Input label='Street' type='text' id='street'/>
+      <Input label="Full Name" type='text' id='name' />
+      <Input label='Email Adress' type='email' id='email' />
+      <Input label='Street' type='text' id='street' />
       <div className="control-row">
-        <Input label='Postal Code' type='text' id='postal-code'/>
+        <Input label='Postal Code' type='text' id='postal-code' />
         <Input label='City' type='text' id='city' />
       </div>
 

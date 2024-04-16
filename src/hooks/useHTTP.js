@@ -18,10 +18,10 @@ export default function useHTTP(url, config, initialValue) {
     setData(initialValue);
   }
 
-  const sendRequest = useCallback(async function sendRequest(reqData) {
+  const sendRequest = useCallback(async function sendRequest(data) {
     setIsLoading(true);
     try {
-      const resData = await sendHttpRequest(url, {...config, body: reqData});
+      const resData = await sendHttpRequest(url, {...config, body: data});
       setData(resData);
     } catch (error) {
       console.log(error)
