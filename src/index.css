@@ -21,6 +21,13 @@ body {
   padding: 3rem 10%;
 }
 
+@media(max-width: 772.98px) {
+  #main-header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
 #main-header #title {
   display: flex;
   gap: 1rem;
