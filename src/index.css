@@ -295,23 +295,33 @@ h1 {
     padding: 1.5rem 5%;
     min-height: 50px;
   }
-  
+
   #main-header #title {
     gap: 0.7rem;
   }
-  
+
   #main-header #title img {
     width: 2rem;
     height: 2rem;
     border: 1px solid #ffc404;
   }
-  
+
   #main-header button {
     font-size: 1rem;
   }
-  
+
   h1 {
     font-weight: 600;
     font-size: 1rem;
+  }
+
+  .cart-item-actions {
+    gap: 0.5rem;
+  }
+
+  .cart-item-actions button {
+    font-size: 1.2rem;
+    width: 1.5rem;
+    height: 1.5rem;
   }
 }
